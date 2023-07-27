@@ -127,7 +127,7 @@
             "destination_type": "queue",
             "arguments": {},
             "destination": "archived",
-            "routing_key": "accessionIDs"
+            "routing_key": "archived"
         },
         {
             "source": "sda",
@@ -135,7 +135,7 @@
             "destination_type": "queue",
             "arguments": {},
             "destination": "accession",
-            "routing_key": "accession"
+            "routing_key": "accessionIDs"
         },
         {
             "source": "sda",
