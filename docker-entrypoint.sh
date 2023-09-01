@@ -27,6 +27,7 @@ if [ -e "${MQ_SERVER_CERT}" ] && [ -e "${MQ_SERVER_KEY}" ]; then
 		ssl_options.keyfile = ${MQ_SERVER_KEY}
 		ssl_options.versions.1 = tlsv1.2
 		disk_free_limit.absolute = 1GB
+		management.tcp.port = 15672
 		management.ssl.port = 15671
 		management.ssl.certfile = ${MQ_SERVER_CERT}
 		management.ssl.keyfile = ${MQ_SERVER_KEY}
