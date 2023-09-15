@@ -18,26 +18,26 @@ sed -e "s/RABBITMQ_DEFAULT_USER/$RABBITMQ_DEFAULT_USER/" -e "s/RABBITMQ_DEFAULT_
 
 echo "load_definitions = /var/lib/rabbitmq/definitions.json" >"/var/lib/rabbitmq/rabbitmq.conf"
 
-if [ -e "${MQ_SERVER_CERT}" ] && [ -e "${MQ_SERVER_KEY}" ]; then
+if [ -e "${RABBITMQ_SERVER_CERT}" ] && [ -e "${RABBITMQ_SERVER_KEY}" ]; then
 	echo "Enabeling TLS"
 	cat >>"/var/lib/rabbitmq/rabbitmq.conf" <<-EOF
 		listeners.tcp  = none
 		listeners.ssl.default = 5671
-		ssl_options.certfile = ${MQ_SERVER_CERT}
-		ssl_options.keyfile = ${MQ_SERVER_KEY}
+		ssl_options.certfile = ${RABBITMQ_SERVER_CERT}
+		ssl_options.keyfile = ${RABBITMQ_SERVER_KEY}
 		ssl_options.versions.1 = tlsv1.2
 		disk_free_limit.absolute = 1GB
-		management.tcp.port = 15672
+  	management.tcp.port = 15672
 		management.ssl.port = 15671
-		management.ssl.certfile = ${MQ_SERVER_CERT}
-		management.ssl.keyfile = ${MQ_SERVER_KEY}
+		management.ssl.certfile = ${RABBITMQ_SERVER_CERT}
+		management.ssl.keyfile = ${RABBITMQ_SERVER_KEY}
 	EOF
 
-	if [ -e "${MQ_CA}" ] && [ "${MQ_VERIFY}" = "verify_peer" ]; then
+	if [ -e "${RABBITMQ_SERVER_CACERT}" ] && [ "${RABBITMQ_SERVER_VERIFY}" = "verify_peer" ]; then
 		cat >>"/var/lib/rabbitmq/rabbitmq.conf" <<-EOF
 			ssl_options.verify = verify_peer
 			ssl_options.fail_if_no_peer_cert = true
-			ssl_options.cacertfile = ${MQ_CA}
+			ssl_options.cacertfile = ${RABBITMQ_SERVER_CACERT}
 		EOF
 	fi
 fi
